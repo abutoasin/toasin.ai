@@ -1,6 +1,8 @@
 import streamlit as st
 import requests
 import textwrap
+from mistralai.client import Mistral
+
 
 API_KEY = st.secrets["API_KEY"]
 AGENT_ID = st.secrets["AGENT_ID"]
@@ -22,6 +24,8 @@ Other portfolio:
 """
 
 def ask_toasin_ai(question: str) -> str:
+    client = Mistral(api_key=API_KEY)
+    
     url = f"https://api.mistral.ai/v1/agents/{AGENT_ID}/completions"
     headers = {"Authorization": f"Bearer {API_KEY}"}
     
@@ -36,9 +40,10 @@ def ask_toasin_ai(question: str) -> str:
     {question}
     """
 
-    response = requests.post(url, json={"input": full_input}, headers=headers)
-    response.raise_for_status()
-    return response.json()["output"]
+    full_inputs = [{"role": "user", "content": full_input}]
+    
+    response = client.beta.conversations.start(agent_id=AGENT_ID, agent_version=3,inputs=full_inputs)
+    return response.output_text
 
 st.title("Toasin.AI — Interactive CV Assistant")
 st.write("Ask anything about Abu’s experience, skills, and projects.")
