@@ -22,7 +22,7 @@ Other portfolio:
 """
 
 def ask_toasin_ai(question: str) -> str:
-    url = f"https://api.mistral.ai/v1/agents/{AGENT_ID}/invoke"
+    url = f"https://api.mistral.ai/v1/agents/{AGENT_ID}/completions"
     headers = {"Authorization": f"Bearer {API_KEY}"}
     
     full_input = f"""
