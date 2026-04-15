@@ -43,7 +43,7 @@ def ask_toasin_ai(question: str) -> str:
     full_inputs = [{"role": "user", "content": full_input}]
     
     response = client.beta.conversations.start(agent_id=AGENT_ID, agent_version=3,inputs=full_inputs)
-    return response
+    return response.outputs[0].content
 
 st.title("Toasin.AI — Interactive CV Assistant")
 st.write("Ask anything about Abu’s experience, skills, and projects.")
