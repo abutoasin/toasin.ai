@@ -53,7 +53,6 @@ User question:
     # See Mistral Conversations beta docs for structure of inputs/outputs.
     response = client.beta.conversations.start(
         agent_id=AGENT_ID,
-        agent_version=3,
         inputs=inputs,
     )
 
